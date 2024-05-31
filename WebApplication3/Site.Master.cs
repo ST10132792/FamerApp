@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace WebApplication3
 {
@@ -69,7 +67,20 @@ namespace WebApplication3
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                var userManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var currentUser = userManager.FindById(HttpContext.Current.User.Identity.GetUserId());
 
+                if (currentUser != null && userManager.IsInRole(currentUser.Id, "Farmer"))
+                {
+                    var homeLink = FindControl("homeLink") as HyperLink;
+                    if (homeLink != null)
+                    {
+                        homeLink.NavigateUrl = "~/FarmerPage.aspx";
+                    }
+                }
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
@@ -77,5 +88,4 @@ namespace WebApplication3
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
-
 }

@@ -187,6 +187,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FarmerPage.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -382,10 +383,27 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FarmerPage.aspx.cs">
+      <DependentUpon>FarmerPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FarmerPage.aspx.designer.cs">
+      <DependentUpon>FarmerPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405272029256_InitialCreate.cs" />
+    <Compile Include="Migrations\202405272029256_InitialCreate.designer.cs">
+      <DependentUpon>202405272029256_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405272246157_AddProductTable.cs" />
+    <Compile Include="Migrations\202405272246157_AddProductTable.designer.cs">
+      <DependentUpon>202405272246157_AddProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -410,7 +428,14 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202405272029256_InitialCreate.resx">
+      <DependentUpon>202405272029256_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405272246157_AddProductTable.resx">
+      <DependentUpon>202405272246157_AddProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />

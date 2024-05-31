@@ -1,0 +1,42 @@
+INSERT INTO AspNetUserRoles (UserId, RoleId)
+VALUES
+('1c7c8997-6c68-4378-bdd5-3fec9701d196', 'BA86D8F3-FBF1-4E7D-864C-86D23B412B0C'),
+('838cb359-d627-4a3c-8cbd-4ead5b795d10', 'BA86D8F3-FBF1-4E7D-864C-86D23B412B0C'),
+('5dce18d9-7a68-49fb-a0b8-cbf6dbbfc5ff', 'FD28F803-3038-4892-AFAC-581F0BCFE0FE');
+
+
+
+INSERT INTO AspNetRoles (Id, Name)
+VALUES
+('FD28F803-3038-4892-AFAC-581F0BCFE0FE', 'Employee'),
+('BA86D8F3-FBF1-4E7D-864C-86D23B412B0C', 'Farmer');
+
+
+INSERT INTO AspNetUsers (Id, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName)
+VALUES
+('1c7c8997-6c68-4378-bdd5-3fec9701d196', 'farmer1@example.com', 1, 'AArgojCqPSUciJqxTy5yHga4wmMS2B6kkHRcev+2WjIYYhhyKFG4/fhRqwC/lkiozA==', '49b68e1e-79d1-472d-a2a1-a531df560a0a', NULL, 0, 0, NULL, 0, 0, 'farmer1'),
+('838cb359-d627-4a3c-8cbd-4ead5b795d10', 'farmer2@example.com', 1, 'AKFBbbPONx6GLKPbI3av3OIQSumNS8aY75woqeapv+ooNPwMmbJRwJKA74iONVBO6A==', 'e4df7d79-3e07-4183-9d55-160c20f4dd0a', NULL, 0, 0, NULL, 0, 0, 'farmer2'),
+('5dce18d9-7a68-49fb-a0b8-cbf6dbbfc5ff', 'Employee1@example.com', 1, 'APHBFSQgbddzuVUPT3C529NxJQizzuMhXQcUyo3syTToxV4tpc4AtarDwyr4fPbTbg==', '63d9ec00-46ec-4609-ab7d-78e2edba75cc', NULL, 0, 0, NULL, 0, 0, 'Employee1');
+
+
+
+INSERT INTO Products (FarmerId, Name, Category, ProductionDate)
+VALUES
+('1c7c8997-6c68-4378-bdd5-3fec9701d196', 'Apples', 'Fruits', '2024-05-01'),
+('1c7c8997-6c68-4378-bdd5-3fec9701d196', 'Carrots', 'Vegetables', '2024-05-02'),
+('838cb359-d627-4a3c-8cbd-4ead5b795d10', 'Oranges', 'Fruits', '2024-05-03'),
+('838cb359-d627-4a3c-8cbd-4ead5b795d10', 'Potatoes', 'Vegetables', '2024-05-04');
+
+CREATE TABLE dbo.Products (
+    Id INT PRIMARY KEY IDENTITY,
+    FarmerId NVARCHAR(128) NOT NULL,
+    Name NVARCHAR(100) NOT NULL,
+    Category NVARCHAR(50) NOT NULL,
+    ProductionDate DATE NOT NULL
+);
+
+
+
+
+
+

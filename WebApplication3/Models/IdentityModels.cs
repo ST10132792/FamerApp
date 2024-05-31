@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -38,6 +39,8 @@ namespace WebApplication3.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Products> Products { get; set; }
     }
 }
 

@@ -1,4 +1,41 @@
-﻿using System;
+﻿select * from AspNetUsers
+select * from AspNetRoles
+select * from AspNetUserRoles
+
+
+
+-- Insert roles into the AspNetRoles table
+INSERT INTO [dbo].[AspNetRoles] ([Id], [Name]) VALUES (NEWID(), 'Farmer');
+INSERT INTO [dbo].[AspNetRoles] ([Id], [Name]) VALUES (NEWID(), 'Employee');
+INSERT INTO [dbo].[AspNetRoles] ([Id], [Name]) VALUES (NEWID(), 'Customer');
+
+-- Insert user with ID 6861b7c2-9e7e-4afa-9b34-cd61c9e71e24 into role with ID FD28F803-3038-4892-AFAC-581F0BCFE0FE
+INSERT INTO [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES ('6861b7c2-9e7e-4afa-9b34-cd61c9e71e24', 'FD28F803-3038-4892-AFAC-581F0BCFE0FE');
+
+-- Insert user with ID e70d2aaf-7c66-400b-859f-5bf2f6a8ff37 into role with ID BA86D8F3-FBF1-4E7D-864C-86D23B412B0C
+INSERT INTO [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES ('e70d2aaf-7c66-400b-859f-5bf2f6a8ff37', 'BA86D8F3-FBF1-4E7D-864C-86D23B412B0C');
+
+
+-- Update the role ID for the user with ID 'e70d2aaf-7c66-400b-859f-5bf2f6a8ff37' to 'BA86D8F3-FBF1-4E7D-864C-86D23B412B0C'
+UPDATE [dbo].[AspNetUserRoles] SET [RoleId] = 'BA86D8F3-FBF1-4E7D-864C-86D23B412B0C' WHERE [UserId] = 'e70d2aaf-7c66-400b-859f-5bf2f6a8ff37';
+
+
+
+
+
+test@farmer.test
+Testing123!
+
+
+
+
+
+
+
+
+Old Login page: 
+
+using System;
 using System.Web;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
@@ -12,9 +49,13 @@ namespace WebApplication3.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            RegisterHyperLink.NavigateUrl = "Register";
+            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            
+            if (!String.IsNullOrEmpty(returnUrl))
+            {
+                RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+            }
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -25,22 +66,16 @@ namespace WebApplication3.Account
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signinManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
 
-                // Find user by email
-                var user = manager.FindByEmail(Email.Text);
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger lockout, change to shouldLockout: true
+                var user = manager.FindByEmail(Email.Text); // Find user by email
                 if (user != null)
                 {
                     var result = signinManager.PasswordSignIn(user.UserName, Password.Text, RememberMe.Checked, shouldLockout: false);
                     switch (result)
                     {
                         case SignInStatus.Success:
-                            if (manager.IsInRole(user.Id, "Farmer"))
-                            {
-                                Response.Redirect("~/FarmerPage.aspx");
-                            }
-                            else
-                            {
-                                IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
-                            }
+                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                             break;
                         case SignInStatus.LockedOut:
                             Response.Redirect("/Account/Lockout");
@@ -67,3 +102,4 @@ namespace WebApplication3.Account
         }
     }
 }
+
